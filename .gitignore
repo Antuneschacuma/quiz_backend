@@ -1,0 +1,70 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules
+.bower_components
+.pnp
+.pnp.js
+
+# Build directories
+dist
+dist-ssr
+.build
+.tmp
+
+# Cache files
+.cache
+.parcel-cache
+.npm
+.yarn
+.pnpm-store
+
+# Local environment files
+*.env
+*.local
+.env.*.local
+.envrc
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.iml
+*.sw?
+
+# Mac OS file that stores folder custom attributes
+.DS_Store
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Windows shortcut files
+*.lnk
+
+# Yarn Berry
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
