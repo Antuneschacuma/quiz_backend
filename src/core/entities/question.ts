@@ -1,5 +1,5 @@
 import { Difficulty } from "../enums";
-import{ v4 as uuid} from "uuid";
+import { v4 as uuid } from "uuid";
 
 export class Question {
   private id: string;
@@ -24,11 +24,11 @@ export class Question {
     category: string;
     difficulty: Difficulty;
   }) {
-    this.id = id.trim();
-    this.content = content.trim();
-    this.options = options.map((opt) => opt.trim()).filter((opt) => opt !== "");
-    this.correctOption = correctOption.trim();
-    this.category = category.trim();
+    this.id = id;
+    this.content = content;
+    this.options = options;
+    this.correctOption = correctOption;
+    this.category = category;
     this.difficulty = difficulty;
   }
 
@@ -36,28 +36,48 @@ export class Question {
     return this.id;
   }
 
+  setId({ id }: { id: string }): void {
+    this.id = id;
+  }
+
   getContent(): string {
     return this.content;
+  }
+
+  setContent({ content }: { content: string }): void {
+    this.content = content;
   }
 
   getOptions(): string[] {
     return this.options;
   }
 
+  setOptions({ options }: { options: string[] }): void {
+    this.options = options;
+  }
+
   getCorrectOption(): string {
     return this.correctOption;
+  }
+
+  setCorrectOption({ option }: { option: string }): void {
+    this.correctOption = option;
   }
 
   getCategory(): string {
     return this.category;
   }
 
+  setCategory({ category }: { category: string }): void {
+    this.category = category;
+  }
+
   getDifficulty(): Difficulty {
     return this.difficulty;
   }
 
-  isIdValid(): boolean {
-    return this.id.length >= 1 && this.id.length <= 50;
+  setDifficulty({ difficulty }: { difficulty: Difficulty }): void {
+    this.difficulty = difficulty;
   }
 
   isContentValid(): boolean {
@@ -65,10 +85,7 @@ export class Question {
   }
 
   isOptionsValid(): boolean {
-    return (
-      this.options.length > 0 &&
-      this.options.every((opt) => opt.length >= 1 && opt.length <= 4)
-    );
+    return this.options.length === 4;
   }
 
   isCorrectOptionValid(): boolean {
@@ -84,36 +101,11 @@ export class Question {
   }
 
   public validate(): void {
-    if (!this.isIdValid()) throw new Error("ID inválido");
     if (!this.isContentValid()) throw new Error("Conteúdo inválido");
     if (!this.isOptionsValid()) throw new Error("Opções inválidas");
     if (!this.isCorrectOptionValid()) throw new Error("Opção correta inválida");
     if (!this.isCategoryValid()) throw new Error("Categoria inválida");
     if (!this.isDifficultyValid()) throw new Error("Dificuldade inválida");
-  }
-
-  setId({ id }: { id: string }): void {
-    this.id = id;
-  }
-
-  setContent({ content }: { content: string }): void {
-    this.content = content;
-  }
-
-  setOptions({ options }: { options: string[] }): void {
-    this.options = options;
-  }
-
-  setCorrectOption({ option }: { option: string }): void {
-    this.correctOption = option;
-  }
-
-  setCategory({ category }: { category: string }): void {
-    this.category = category;
-  }
-
-  setDifficulty({ difficulty }: { difficulty: Difficulty }): void {
-    this.difficulty = difficulty;
   }
 
   static builder(): QuestionBuilder {
@@ -131,8 +123,8 @@ export class QuestionBuilder {
     difficulty: Difficulty;
   }> = {};
 
-  setId(id?: string): QuestionBuilder {
-    this.data.id = id?.trim() || uuid();
+  setId(id: string): QuestionBuilder {
+    this.data.id = id.trim();
     return this;
   }
 
@@ -157,22 +149,21 @@ export class QuestionBuilder {
     this.data.category = category.trim();
     return this;
   }
-
-  setDifficulty(difficulty: Difficulty): QuestionBuilder {
+  setDifficulty(difficulty: Difficulty): this {
     this.data.difficulty = difficulty;
     return this;
-  }
+   }
+  
 
   build(): Question {
-    if (!this.data.id?.trim()) throw new Error("ID é obrigatório");
-    if (!this.data.content?.trim()) throw new Error("Conteúdo é obrigatório");
-    if (!this.data.options?.map((opt) => opt.trim()).filter((opt) => opt !== "")) throw new Error("Opções são obrigatórias");
-    if (!this.data.correctOption?.trim()) throw new Error("Opção correta é obrigatória");
-    if (!this.data.category?.trim()) throw new Error("Categoria é obrigatória");
-    if (!this.data.difficulty) throw new Error("Dificuldade é obrigatória");
+    if (!this.data.content) throw new Error("Conteúdo inválido");
+    if (!this.data.options || this.data.options.length === 0) throw new Error("Opções inválidas");
+    if (!this.data.correctOption) throw new Error("Opção correta inválida");
+    if (!this.data.category) throw new Error("Categoria inválida");
+    if (!this.data.difficulty) throw new Error("Dificuldade inválida");
 
     const question = new Question({
-      id: this.data.id,
+      id: this.data.id || uuid(),
       content: this.data.content,
       options: this.data.options,
       correctOption: this.data.correctOption,
