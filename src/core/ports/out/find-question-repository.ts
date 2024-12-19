@@ -1,5 +1,5 @@
 import { Question } from "../../entities";
 
-export interface FindQuestionByIdPort {
-    find(id: string): Promise<Question | null>;
+export interface IFindQuestionByIdRepository {
+    find({id}: {id:string}): Promise<Question | null>;
 }
