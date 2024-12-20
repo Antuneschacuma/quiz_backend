@@ -1,9 +1,30 @@
 import { Question } from "../../core/entities";
 import { ICreateQuestioRepository } from "../../core/ports/out";
+import { PrismaDatabase } from "../../infra";
+import { Difficulty } from "../../core/enums";
 
 export class CreateQuestionRepository implements ICreateQuestioRepository {
-  async save({ question }: { question: Question }): Promise<Question> {
+  private prisma = new PrismaDatabase().getPrisma();
 
-    return Promise.resolve( question);
+  async save({ question }: { question: Question }): Promise<Question> {
+    const savedQuestion = await this.prisma.question.create({
+      data: {
+        id: question.getId(),
+        content: question.getContent(),
+        options: question.getOptions(), // Será armazenado como JSON
+        correctOption: question.getCorrectOption(),
+        category: question.getCategory(),
+        difficulty: question.getDifficulty(),  // Certifique-se de passar o enum diretamente
+      },
+    });
+
+    return new Question({
+      id: savedQuestion.id,
+      content: savedQuestion.content,
+      options: savedQuestion.options as string[],
+      correctOption: savedQuestion.correctOption,
+      category: savedQuestion.category,
+      difficulty: savedQuestion.difficulty as Difficulty,  // Convertendo para o tipo Difficulty
+    });
   }
 }
