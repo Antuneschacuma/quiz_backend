@@ -1,0 +1,52 @@
+services:
+  quiz_backend:
+    build: .
+    image: quiz_backend:latest
+    container_name: quiz_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=${PORT}
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - quiz_backend_db
+    volumes:
+      - .:/usr/src/quiz-backend
+    networks:
+      - quiz_backend_network
+    entrypoint: ["sh", "-c", "until nc -z quiz_backend_db 5432; do sleep 5; done; pnpm dev"]
+
+  quiz_backend_db:
+    image: postgres:14
+    container_name: quiz_backend_db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - quiz_backend_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - quiz_backend_db
+    networks:
+      - quiz_backend_network
+
+networks:
+  quiz_backend_network:
+    driver: bridge
+
+volumes:
+  pgdata:
+    driver: local

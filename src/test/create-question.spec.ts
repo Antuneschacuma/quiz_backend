@@ -59,7 +59,7 @@ describe("create question", () => {
 
 
   it("should create an Instance of Question", async ()=>{
-    const questionRequest= createQuestionRequest("Quando foi fundada nossa empresa", ['1950', '2014', '2009','1990',],'2009',Difficulty.EASY);
+    const questionRequest= createQuestionRequest("Quando foi fundada nossa empresa", ['1950', '2014', '2009','1990',],'2009','industria',Difficulty.HARD);
     const promise= await makeSut().create({questionRequest});
     expect(promise.getCorrectOption()).toBe('2009');
     expect(promise.getOptions()?.length).toEqual(4);
