@@ -11,10 +11,10 @@ export class CreateQuestionRepository implements ICreateQuestioRepository {
       data: {
         id: question.getId(),
         content: question.getContent(),
-        options: question.getOptions(), // Será armazenado como JSON
+        options: question.getOptions(),
         correctOption: question.getCorrectOption(),
         category: question.getCategory(),
-        difficulty: question.getDifficulty(),  // Certifique-se de passar o enum diretamente
+        difficulty: question.getDifficulty(),
       },
     });
 
@@ -24,7 +24,7 @@ export class CreateQuestionRepository implements ICreateQuestioRepository {
       options: savedQuestion.options as string[],
       correctOption: savedQuestion.correctOption,
       category: savedQuestion.category,
-      difficulty: savedQuestion.difficulty as Difficulty,  // Convertendo para o tipo Difficulty
+      difficulty: savedQuestion.difficulty as Difficulty, 
     });
   }
 }
