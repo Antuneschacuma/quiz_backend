@@ -38,7 +38,7 @@ describe("create question", () => {
   });
 
   it("should throw exception with invalid correctOption", async ()=>{
-    const questionRequest= createQuestionRequest("Quando foi fundada nossa empresa", ['1950', '2014', '2009','1990',],'2013');
+    const questionRequest= createQuestionRequest("Quando foi fundada nossa empresa", ['1950', '2014', '2009','1999',],'2013');
     const promise = makeSut().create({questionRequest})
     await expect(promise).rejects.toThrowError("Opção correta inválida");
   });
