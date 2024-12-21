@@ -1,6 +1,6 @@
 import { Question } from "../../core/entities";
 import { Difficulty } from "../../core/enums";
-import { IFindAllQuestionRepository } from "../../core/ports/out/find-all-question-repository";
+import { IFindAllQuestionRepository } from "../../core/ports/out";
 import { PrismaDatabase } from "../../infra";
 
 export class FindAllQuestionRepository implements IFindAllQuestionRepository {
