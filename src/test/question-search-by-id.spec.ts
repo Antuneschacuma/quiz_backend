@@ -10,9 +10,9 @@ const makeSut = () => {
 
 describe("Find Question By Id Repository (with mock)", () => {
   it("should return a Question object when ID exists", async () => {
-    const question = await makeSut().findById({ id: "d9bd6287-3d14-45ab-ac25-4cb0d5301470" });
+    const question = await makeSut().findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
     expect(question).toBeInstanceOf(Question);
-    expect(question.getId()).toBe("d9bd6287-3d14-45ab-ac25-4cb0d5301470");
+    expect(question.getId()).toBe("a0a99fb4-ff5d-44d8-9033-b185cbb1991c");
   });
 
   it("should throw an error when question is not found", async () => {
@@ -24,7 +24,7 @@ describe("Find Question By Id Repository (with mock)", () => {
   });
 
   it("should validate the properties of the returned Question object", async () => {
-    const question = await makeSut().findById({ id: "d9bd6287-3d14-45ab-ac25-4cb0d5301470" });
+    const question = await makeSut().findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
     expect(question.getOptions().length).toBeGreaterThan(0);
     expect(question.getOptions()).toContain(question.getCorrectOption());
     expect(question.getContent()).not.toBe("");
@@ -33,10 +33,10 @@ describe("Find Question By Id Repository (with mock)", () => {
   it("should handle multiple questions with unique IDs", async () => {
     const controller = makeSut();
 
-    const question1 = await controller.findById({ id: "d9bd6287-3d14-45ab-ac25-4cb0d5301470" });
+    const question1 = await controller.findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
     const question2 = await controller.findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
 
-    expect(question1.getId()).toBe("d9bd6287-3d14-45ab-ac25-4cb0d5301470");
+    expect(question1.getId()).toBe("a0a99fb4-ff5d-44d8-9033-b185cbb1991c");
     expect(question2.getId()).toBe("a0a99fb4-ff5d-44d8-9033-b185cbb1991c");
     console.log(question1.getContent())
     //expect(question1.getContent()).not.toBe(question2.getContent());
