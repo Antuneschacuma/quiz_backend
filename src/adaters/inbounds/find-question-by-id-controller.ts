@@ -5,7 +5,7 @@ export class FindQuestionByIdController {
     
     async findById({id}:{id :string}): Promise<Question> {
         if (!id) throw new Error("ID inválido");
-        const question = await this.findQuestionById.execute(id);
+        const question = await this.findQuestionById.execute({id});
         if (!question) throw new Error("Questão não encontrada");
         return question;
     }

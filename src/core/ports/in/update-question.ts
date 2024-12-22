@@ -1,5 +1,20 @@
 import { Question } from "../../entities";
+import { Difficulty } from "../../enums";
 
-export interface IUpdateQuestion{
-    execute({id,question}:{id:string,question:Question}):Promise<Question>;
+export interface IUpdateQuestion {
+  execute({
+    id,
+    content,
+    options,
+    correctOption,
+    category,
+    difficulty,
+  }: {
+    id: string;
+    content: string;
+    options: string[];
+    correctOption: string;
+    category: string;
+    difficulty: Difficulty;
+  }): Promise<Question>;
 }

@@ -14,6 +14,7 @@ const makeSut = () => {
 describe("create question", () => {
 
   const questionRequest = new QuestionRequest(
+      "",
       "",      
       ['','','',''],      
       "",      

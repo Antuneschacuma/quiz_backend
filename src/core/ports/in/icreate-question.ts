@@ -1,5 +1,18 @@
 import { Question } from "../../entities";
+import { Difficulty } from "../../enums";
 
 export interface ICreateQuestion {
-  execute({ question }: { question: Question }): Promise<Question>;
+  execute({
+    content,
+    options,
+    correctOption,
+    category,
+    difficulty,
+  }: {
+    content: String;
+    options: string[];
+    correctOption: string;
+    category: string;
+    difficulty: Difficulty;
+  }): Promise<Question>;
 }

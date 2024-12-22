@@ -6,16 +6,19 @@ import { PrismaDatabase } from "../../infra";
 export class UpdateQuestionRepository implements IUpdateQuestionRepository{
 
     private prisma =new PrismaDatabase().getPrisma();
-    async updateQuestion({ id, question }: { id: string; question: Question; }): Promise<Question> {
+
+    async updateQuestion({question }: {question: Question; }): Promise<Question> {
+        const id=question.getId();
+
         try {
-            const existingQuestion = await this.prisma.question.findUnique({ where: { id } });
+            const existingQuestion = await this.prisma.question.findUnique({ where: {id} });
           
             if (!existingQuestion) {
               throw new Error(`Question with ID ${id} not found.`);
             }
           
             const updatedQuestion = await this.prisma.question.update({
-              where: { id },
+              where: {id},
               data: {
                 content: question.getContent(),
                 options: question.getOptions(),
