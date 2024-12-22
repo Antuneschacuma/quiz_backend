@@ -10,7 +10,7 @@ export class FindQuestionByIdRepository implements IFindQuestionByIdRepository {
     const savedQuestion = await this.prisma.question.findUnique({
       where: {
         id: id, 
-      },
+    },
     });
 
     if (!savedQuestion) {
