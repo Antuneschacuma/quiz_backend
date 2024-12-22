@@ -17,7 +17,7 @@ export class Question {
     category,
     difficulty,
   }: {
-    id: string;
+    id:string;
     content: string;
     options: string[];
     correctOption: string;
@@ -32,56 +32,56 @@ export class Question {
     this.difficulty = difficulty;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
   setId({ id }: { id: string }): void {
     this.id = id;
-  }
-
-  getContent(): string {
-    return this.content;
   }
 
   setContent({ content }: { content: string }): void {
     this.content = content;
   }
 
-  getOptions(): string[] {
-    return this.options;
-  }
-
   setOptions({ options }: { options: string[] }): void {
     this.options = options;
-  }
-
-  getCorrectOption(): string {
-    return this.correctOption;
   }
 
   setCorrectOption({ option }: { option: string }): void {
     this.correctOption = option;
   }
 
-  getCategory(): string {
-    return this.category;
-  }
-
   setCategory({ category }: { category: string }): void {
     this.category = category;
-  }
-
-  getDifficulty(): Difficulty {
-    return this.difficulty;
   }
 
   setDifficulty({ difficulty }: { difficulty: Difficulty }): void {
     this.difficulty = difficulty;
   }
 
+  getId(): string {
+    return this.id;
+  }
+
+  getContent(): string {
+    return this.content;
+  }
+
+  getOptions(): string[] {
+    return this.options;
+  }
+
+  getCorrectOption(): string {
+    return this.correctOption;
+  }
+
+  getCategory(): string {
+    return this.category;
+  }
+
+  getDifficulty(): Difficulty {
+    return this.difficulty;
+  }
+
   isContentValid(): boolean {
-    return this.content.length >= 1 && this.content.length <= 500;
+    return this.content.length >= 2 && this.content.length <= 100;
   }
 
   isOptionsValid(): boolean {
@@ -93,7 +93,7 @@ export class Question {
   }
 
   isCategoryValid(): boolean {
-    return this.category.length >= 1 && this.category.length <= 50;
+    return this.category.length >= 2 && this.category.length <= 50;
   }
 
   isDifficultyValid(): boolean {
@@ -115,18 +115,12 @@ export class Question {
 
 export class QuestionBuilder {
   private data: Partial<{
-    id: string;
     content: string;
     options: string[];
     correctOption: string;
     category: string;
     difficulty: Difficulty;
   }> = {};
-
-  setId(id: string): QuestionBuilder {
-    this.data.id = id.trim();
-    return this;
-  }
 
   setContent(content: string): QuestionBuilder {
     this.data.content = content.trim();
@@ -152,8 +146,7 @@ export class QuestionBuilder {
   setDifficulty(difficulty: Difficulty): this {
     this.data.difficulty = difficulty;
     return this;
-   }
-  
+  }
 
   build(): Question {
     if (!this.data.content) throw new Error("Conteúdo inválido");
@@ -163,7 +156,7 @@ export class QuestionBuilder {
     if (!this.data.difficulty) throw new Error("Dificuldade inválida");
 
     const question = new Question({
-      id: this.data.id || uuid(),
+      id:uuid(),
       content: this.data.content,
       options: this.data.options,
       correctOption: this.data.correctOption,

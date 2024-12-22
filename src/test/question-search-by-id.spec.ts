@@ -10,9 +10,9 @@ const makeSut = () => {
 
 describe("Find Question By Id Repository (with mock)", () => {
   it("should return a Question object when ID exists", async () => {
-    const question = await makeSut().findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
+    const question = await makeSut().findById({ id: "bbb42048-73c3-4bb1-8098-3d0e1ca20d1a" });
     expect(question).toBeInstanceOf(Question);
-    expect(question.getId()).toBe("a0a99fb4-ff5d-44d8-9033-b185cbb1991c");
+    expect(question.getId()).toBe("bbb42048-73c3-4bb1-8098-3d0e1ca20d1a");
   });
 
   it("should throw an error when question is not found", async () => {
@@ -24,7 +24,7 @@ describe("Find Question By Id Repository (with mock)", () => {
   });
 
   it("should validate the properties of the returned Question object", async () => {
-    const question = await makeSut().findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
+    const question = await makeSut().findById({ id: "bbb42048-73c3-4bb1-8098-3d0e1ca20d1a" });
     expect(question.getOptions().length).toBeGreaterThan(0);
     expect(question.getOptions()).toContain(question.getCorrectOption());
     expect(question.getContent()).not.toBe("");
@@ -33,12 +33,13 @@ describe("Find Question By Id Repository (with mock)", () => {
   it("should handle multiple questions with unique IDs", async () => {
     const controller = makeSut();
 
-    const question1 = await controller.findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
-    const question2 = await controller.findById({ id: "a0a99fb4-ff5d-44d8-9033-b185cbb1991c" });
+    const question1 = await controller.findById({ id: "bbb42048-73c3-4bb1-8098-3d0e1ca20d1a" });
+    console.log(question1.getId())
+    const question2 = await controller.findById({ id: "165cfee1-97a0-45ba-be94-b49483d62567" });
+    console.log(question2.getId())
 
-    expect(question1.getId()).toBe("a0a99fb4-ff5d-44d8-9033-b185cbb1991c");
-    expect(question2.getId()).toBe("a0a99fb4-ff5d-44d8-9033-b185cbb1991c");
-    console.log(question1.getContent())
-    //expect(question1.getContent()).not.toBe(question2.getContent());
+    expect(question1.getId()).toBe("bbb42048-73c3-4bb1-8098-3d0e1ca20d1a");
+    expect(question2.getId()).toBe("165cfee1-97a0-45ba-be94-b49483d62567");
+    expect(question1.getContent()).not.toBe(question2.getContent()); 
   });
 });

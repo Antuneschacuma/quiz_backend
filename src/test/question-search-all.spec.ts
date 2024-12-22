@@ -5,8 +5,8 @@ import { FindAllQuestionRepository } from "../adaters/outbounds";
 import { Question } from "../core/entities";
 
 const makeSut = () => {
-  return new FindAllQuestionController(
-    new FindAllQuestion(new FindAllQuestionRepository())
+   return new FindAllQuestionController(
+   new FindAllQuestion(new FindAllQuestionRepository())
   );
 };
 
